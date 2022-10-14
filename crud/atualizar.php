@@ -17,31 +17,48 @@
     $telefone = $_POST['telefone'];
     $email = $_POST['email'];
 
-    //vai atualizar dados da tabela  
-        $str_sql = "UPDATE tb_crud_cliente SET NomeCliente = :nome, SobreNomeCliente = :sobrenome, RGCliente = :rg, CPFCliente = :cpf, 
-        LogradouroCliente = :logradouro, NumeroCliente = :numero, ComplementoCliente = :complemento, BairroCliente = :bairro, CEPCliente = :cep, UFCliente = :uf, 
-        CidadeCliente = :cidade, TelefoneCliente = :telefone, EmailCliente = :email WHERE id = id";
+    //vai atualizar dados da tabela 
+    $consulta ="SELECT * FROM tb_crud_cliente WHERE id = ?";
+
+    $consulta = $conexao->prepare($consulta);
+
+    $consulta->bindValue(1, $id);
+
+    $consulta->execute();
+
+    try{
+
+    if($consulta->rowCount() = 0){
+        echo "Cadastro inexistente";
+    } else  {
+            
+        $str_sql = "UPDATE tb_crud_cliente SET NomeCliente = :NOME, SobreNomeCliente = :SOBRENOME, RGCliente = :RG, CPFCliente = :CPF, 
+        LogradouroCliente = :LOGRADOURO, NumeroCliente = :NUMERO, ComplementoCliente = :COMPLEMENTO, BairroCliente = :BAIRRO, CEPCliente = :CEP, UFCliente = :UF, 
+        CidadeCliente = :CIDADE, TelefoneCliente = :TELEFONE, EmailCliente = :EMAIL WHERE id = ID";
 
         $str_salvar = $conexao->prepare($str_sql);
-        $str_salvar -> bindParam(':id', $id);
-        $str_salvar -> bindParam(':nome', $nome);
-        $str_salvar -> bindParam(':sobrenome', $sobrenome);
-        $str_salvar -> bindParam(':rg', $rg);
-        $str_salvar -> bindParam(':cpf', $cpf);
-        $str_salvar -> bindParam(':logradouro', $logadouro);
-        $str_salvar -> bindParam(':numero', $numero);
-        $str_salvar -> bindParam(':complemento', $complemento);
-        $str_salvar -> bindParam(':bairro', $bairro);
-        $str_salvar -> bindParam(':cep', $cep);
-        $str_salvar -> bindParam(':uf', $uf);
-        $str_salvar -> bindParam(':cidade', $cidade);
-        $str_salvar -> bindParam(':telefone', $telefone);
-        $str_salvar -> bindParam(':email', $email);
+        $str_salvar -> bindParam(':ID', $id);
+        $str_salvar -> bindParam(':NOME', $nome);
+        $str_salvar -> bindParam(':SOBRENOME', $sobrenome);
+        $str_salvar -> bindParam(':RG', $rg);
+        $str_salvar -> bindParam(':CPF', $cpf);
+        $str_salvar -> bindParam(':LOGRADOURO', $logradouro);
+        $str_salvar -> bindParam(':NUMERO', $numero);
+        $str_salvar -> bindParam(':COMPLEMENTO', $complemento);
+        $str_salvar -> bindParam(':BAIRRO', $bairro);
+        $str_salvar -> bindParam(':CEP', $cep);
+        $str_salvar -> bindParam(':UF', $uf);
+        $str_salvar -> bindParam(':CIDADE', $cidade);
+        $str_salvar -> bindParam(':TELEFONE', $telefone);
+        $str_salvar -> bindParam(':EMAIL', $email);
+        
+        $str_salvar->execute();
 
-        if($str_salvar->execute())
-            echo "Cadastro salvo com sucesso!";
-            
-         catch(PDOExeption $erro) {
+        echo 'atualizado com sucesso';
+        }
+        }
+
+        catch(PDOExeption $erro) {
             echo $erro->getMessage();
     
         }
