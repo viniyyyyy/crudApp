@@ -6,7 +6,7 @@
     $sobrenome = $_POST['sobrenome'];
     $rg = $_POST['rg'];
     $cpf = $_POST['cpf'];
-    $logadouro = $_POST['logadouro'];
+    $logradouro = $_POST['logradouro'];
     $numero = $_POST['numero'];
     $complemento = $_POST['complemento'];
     $bairro = $_POST['bairro'];
@@ -30,7 +30,7 @@
         echo "Ja possui cadastro!";
     } else  {
        
-        $str_sql = "INSERT INTO tb_crud_cliente (NomeCliente, SobrenomeCliente, RGCliente, CPFCliente, LogradouroCliente, NumeorCliente, ComplementoCliente, BairroCliente, CEPCliente, UFCliente, CidadeCliente, TelefonCliente, EmailCliente) ";
+        $str_sql = "INSERT INTO tb_crud_cliente (NomeCliente, SobreNomeCliente, RGCliente, CPFCliente, LogradouroCliente, NumeroCliente, ComplementoCliente, BairroCliente, CEPCliente, UFCliente, CidadeCliente, TelefoneCliente, EmailCliente) ";
         $str_sql = $str_sql . "VALUES (?,?,?,?,?,?,?,?,?,?,?,?,?) ";
 
         $str_salvar = $conexao->prepare($str_sql);
@@ -38,7 +38,7 @@
         $str_salvar -> bindValue(2, $sobrenome);
         $str_salvar -> bindValue(3, $rg);
         $str_salvar -> bindValue(4, $cpf);
-        $str_salvar -> bindValue(5, $logadouro);
+        $str_salvar -> bindValue(5, $logradouro);
         $str_salvar -> bindValue(6, $numero);
         $str_salvar -> bindValue(7, $complemento);
         $str_salvar -> bindValue(8, $bairro);
